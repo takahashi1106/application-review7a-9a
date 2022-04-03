@@ -1,5 +1,5 @@
-Rails.application.routes.draw do
- 
+Rails.application.routes.draw do #VC
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_for :users
   root to:"homes#top"
   get "home/about"=>"homes#about"
@@ -12,8 +12,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index,:show,:edit,:update]do
    resource :relationships, only: [:create, :destroy]
-    get 'followings' => 'relationships#followings', as: 'followings'
-    get 'followers' => 'relationships#followers', as: 'followers'
+   member do
+    get 'follows' => 'relationships#follower'
+    get 'followers' => 'relationships#followed'
    end
+ end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -9,17 +9,17 @@ class RelationshipsController < ApplicationController
     current_user.unfollow(params[:user_id])
     redirect_to request.referer
   end
-  
-  
+
+
 def follower #follower一覧
-    user = User.find(params[:user_id])
-    @users = user.following_user
+    user = User.find(params[:id])
+    @followers = user.following_users
     # .follower_userメソッド ：Userモデルで定義済
 end
 
-def followed #followed一覧
-    user = User.find(params[:user_id])
-    @users = user.follower_user
+def followed #followed一覧 
+    user = User.find(params[:id])
+    @followeds = user.follower_users
     # .follower_userメソッド ：Userモデルで定義済
 end
 end

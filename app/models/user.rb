@@ -8,15 +8,17 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
 
- 
+
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy #フォローするユーザのid
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy #フォローされるユーザのid
-  has_many :follower_user, through: :followed, source: :follower  #フォローしている人
-  has_many :following_user, through: :follower, source: :followed  #フォローされている人
+  has_many :follower_users, through: :followed, source: :follower  #フォローしている人
+  has_many :following_users, through: :follower, source: :followed  #フォローされている人
 
   # ユーザーをフォローする
-  def follow(user_id)
-    follower.create(followed_id: user_id)
+  def follow(another_user)
+    unless self == another_user
+      self.relationships.find_or_create_by(follower_id: another_user.id)
+    end
   end
 
   # ユーザーのフォローを外す
@@ -26,7 +28,7 @@ class User < ApplicationRecord
 
   # フォローしていればtrueを返す
   def following?(user)
-    following_user.include?(user)
+    self.following_users.include?(user)
   end
 
   validates :name, uniqueness: true, length: { minimum: 2, maximum: 20 }
