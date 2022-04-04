@@ -12,10 +12,8 @@ Rails.application.routes.draw do #VC
 
   resources :users, only: [:index,:show,:edit,:update]do
    resource :relationships, only: [:create, :destroy]
-   member do
-    get 'follows' => 'relationships#follower'
-    get 'followers' => 'relationships#followed'
+   get 'followings' => 'relationships#followings', as: 'followings'
+  	get 'followers' => 'relationships#followers', as: 'followers'
    end
- end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
