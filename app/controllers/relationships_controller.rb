@@ -14,13 +14,13 @@ class RelationshipsController < ApplicationController
   end
 
 
-def followings
+def followings #exists? データベースからデータを取得する前に、データが存在しているかどうか
     user = User.find(params[:user_id])
     @users = user.followings
     # ：Userモデルで定義済
 end
 
-def followers
+def followers #exists? データベースからデータを取得する前に、データが存在しているかどうか
     user = User.find(params[:user_id])
     @users = user.followers
     # ：Userモデルで定義済
