@@ -16,7 +16,7 @@ Rails.application.routes.draw do #VC
   	get 'followers' => 'relationships#followers', as: 'followers'
    end
 
-   get "search" => "searches#search"
-   post "search" => "searches#search"
+ get '/search', to: 'searches#search'
+ post '/search', to: 'searches#search'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

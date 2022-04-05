@@ -1,8 +1,7 @@
-<h2>Books search</h2>
-
 <table class="table table-hover table-inverse">
   <!--検索対象モデルがUserの時 -->
-  <% if @range == "User" %>
+  <% if @model == "User"%>
+  <h2>Users search for "<%=@content %>"</h2>
     <thead>
       <% @users.each do |user| %>
     　<tr>
@@ -11,12 +10,13 @@
     　</tr>
   　</thead>
   　<tbody>
-  　<td><%= image_tag user.get_profile_image,size: '50*50'%></td>
+    <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
   　<td><%= user.name%></td>
   　</tbody>
   <% end %>
-  <% else %>
     <!--検索対象モデルがUserではない時(= 検索対象モデルがBookの時) -->
+    <% elsif @model == "Book" %>
+    <h2>Books search for "<%=@content %>"</h2>
     <thead>
       <% @books.each do |book| %>
         <tr>
@@ -27,7 +27,7 @@
     </thead>
     <tbody>
         <tr>
-          <td><%= image_tag book.user.get_profile_image,size: '50*50'%></td>
+          <td><%= image_tag book.user.get_profile_image, size: '50x50' %></td>
           <td><%= book.title %></td>
           <td><%= book.body %></td>
         </tr>
