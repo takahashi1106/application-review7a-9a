@@ -18,6 +18,11 @@ class User < ApplicationRecord
   # 与フォロー関係を通じて参照→自分がフォローしている人
   has_many :followings, through: :relationships, source: :followed
 
+#relationshipsモデルから架空のモデル（reverse_of_relationships,followers,relationships,followings）を作り出してる
+#４つのモデルを作ることも可能だが一つのモデルに纏めといた方が変更もしやすい、見やすい、処理がしやすい
+#reverse_of_relationshipsモデルにRelationshipモデルからfollowed_id
+#followersモデルにreverse_of_relationships内で残りのfollower（follower_id）を取り出す
+
 
   has_one_attached :profile_image
 
