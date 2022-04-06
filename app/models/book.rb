@@ -5,6 +5,7 @@ class Book < ApplicationRecord
   validates :title,presence:true
   validates :body,presence:true,length:{maximum:200}
 
+    
     def favorited_by?(user)
     favorites.exists?(user_id: user.id)
     end
@@ -20,8 +21,8 @@ class Book < ApplicationRecord
       Book.where("title LIKE?","%"+content)
     elsif method == 'partial'
       Book.where("title LIKE ?", "%"+content+"%")
-    else
-      @book=Book.all
+    else 
+      Book.all
     end
    end
 end
