@@ -8,10 +8,15 @@ class BooksController < ApplicationController
   end
 
   def index #books_path
+    to  = Time.current.at_end_of_day
+    from  = (to - 6.day).at_beginning_of_day
+    @books = Book.includes(:favorited_users).#includes 1回で本の投稿とそれに紐づいているユーザーの情報が取り出せるようになります。
+      sort {|a,b| 
+        b.favorited_users.includes(:favorites).where(created_at: from...to).size <=> 
+        a.favorited_users.includes(:favorites).where(created_at: from...to).size
+      }
     @book = Book.new
-    @books = Book.all
     @user=current_user
-    @bookss = Book.find(Favorite.group(:book_id).where(created_at: Time.current.all_week).order('count(book_id) desc').pluck(:book_id))
   end
 
   def create
