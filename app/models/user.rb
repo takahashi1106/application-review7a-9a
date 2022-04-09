@@ -23,6 +23,8 @@ class User < ApplicationRecord
 #reverse_of_relationshipsモデルにRelationshipモデルからfollowed_id
 #followersモデルにreverse_of_relationships内で残りのfollower（follower_id）を取り出す
 
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
 
   has_one_attached :profile_image
 
