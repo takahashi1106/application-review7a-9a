@@ -20,7 +20,6 @@ class BooksController < ApplicationController
     @book = Book.new
     @user=current_user
     @tweet = Book.all
-    @impressionist_hash=@tweet
   end
 
   def create
