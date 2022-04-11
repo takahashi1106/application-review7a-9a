@@ -5,18 +5,22 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @users=@book.user
     @book_comment = BookComment.new
+    @tweet = Book.find(params[:id])
+    impressionist(@tweet, nil, unique: [:session_hash])
   end
 
   def index #books_path
     to  = Time.current.at_end_of_day
     from  = (to - 6.day).at_beginning_of_day
     @books = Book.includes(:favorited_users).#includes 1回で本の投稿とそれに紐づいているユーザーの情報が取り出せるようになります。
-      sort {|a,b| 
-        b.favorited_users.includes(:favorites).where(created_at: from...to).size <=> 
+      sort {|a,b|
+        b.favorited_users.includes(:favorites).where(created_at: from...to).size <=>
         a.favorited_users.includes(:favorites).where(created_at: from...to).size
       }
     @book = Book.new
     @user=current_user
+    @tweet = Book.all
+    @impressionist_hash=@tweet
   end
 
   def create
