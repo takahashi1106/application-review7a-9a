@@ -3,6 +3,9 @@ class BooksController < ApplicationController
   def show #book_path
     @newbook = Book.new
     @book = Book.find(params[:id])
+    unless AddImpressionsCountToBook.find_by(user_id: current_user.id, book_id: @book.id)
+      current_user.add_impressions_count_to_books.create(book_id: @book.id)
+    end
     @users=@book.user
     @book_comment = BookComment.new
     @tweet = Book.find(params[:id])
@@ -19,7 +22,6 @@ class BooksController < ApplicationController
       }
     @book = Book.new
     @user=current_user
-    @tweet = Book.all
   end
 
   def create

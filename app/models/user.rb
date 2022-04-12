@@ -26,7 +26,8 @@ class User < ApplicationRecord
   has_many :entries
   has_many :messages
   has_many :rooms, through: :entries
-  
+  has_many :add_impressions_count_to_books, dependent: :destroy
+ 
   
   has_one_attached :profile_image
 

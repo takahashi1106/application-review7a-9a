@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 2022_04_11_100123) do
   end
 
   create_table "add_impressions_count_to_books", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "book_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
